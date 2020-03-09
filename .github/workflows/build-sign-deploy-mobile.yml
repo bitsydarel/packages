@@ -42,7 +42,9 @@ jobs:
        with:
          channel: beta
      - name: Setting Up Flutter SDK
-       run: flutter pub get       
+       run: flutter pub get
+       working-directory: maintemplate/client/       
      - name: building Android APK
        run: flutter build apk --release
+       working-directory: maintemplate/client/
 
