@@ -17,11 +17,13 @@ on:
       - master
     paths:
       - "maintemplate/client/**"
+      - ".github/workflows/**"
   push:
     branches: 
       - master
     paths:
       - "maintemplate/client/**"
+      - ".github/workflows/**"
 
 env:
   ANDROID_SIGN_KEY_BASE_64: ${{ secrets.ANDROID_SIGN_KEY_BASE_64 }}
