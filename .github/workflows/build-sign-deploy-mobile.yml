@@ -45,6 +45,6 @@ jobs:
        run: flutter pub get
        working-directory: maintemplate/client/       
      - name: building Android APK
-       run: flutter build apk --release
+       run: flutter build apk --debug
        working-directory: maintemplate/client/
 
