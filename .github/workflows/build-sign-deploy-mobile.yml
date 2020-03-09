@@ -1,0 +1,13 @@
+# This workflow will build, package and Sign iOS, Android Apps and publish it to Firebase APP Distribute.
+#
+# To configure this workflow:
+#
+# 1. Set up Android secrets in your workspace: 
+#   * ANDROID_SIGN_KEY_BASE_64 The base64 encoded signing key used to sign the android app.
+#   * ANDROID_SIGN_KEY_ALIAS The alias of your signing key.
+#   * ANDROID_SIGN_KEY_STORE_PASS The alias of your signing key.
+#   * ANDROID_SIGN_KEY_PASSWORD The private key password for your signing keystore.
+# 
+# 2. Set up iOS secrets in your workspace:
+
+name: Build, Package, Sign and Deploy iOS & Android Apps
