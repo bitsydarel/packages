@@ -11,3 +11,34 @@
 # 2. Set up iOS secrets in your workspace:
 
 name: Build, Package, Sign and Deploy iOS & Android Apps
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "maintemplate/client/**"
+  push:
+    branches: 
+      - master
+
+env:
+  ANDROID_SIGN_KEY_BASE_64: ${{ secrets.ANDROID_SIGN_KEY_BASE_64 }}
+  ANDROID_SIGN_KEY_ALIAS: ${{ secrets.ANDROID_SIGN_KEY_ALIAS }}
+  ANDROID_SIGN_KEY_STORE_PASS: ${{ secrets.ANDROID_SIGN_KEY_STORE_PASS }}
+  ANDROID_SIGN_KEY_PASSWORD: ${{ secrets.ANDROID_SIGN_KEY_PASSWORD }}
+
+jobs:
+  build-package:
+   name: "Build and Package"
+   runs-on: [macos-latest]
+   steps:
+     - name: Cloning repository
+       uses: actions/checkout@v2.0.0
+     - name: Setting Up Flutter SDK
+       uses: subosito/flutter-action@v1.2.0
+       with:
+         channel: beta
+     - run: flutter pub get       
+     - name: building Android APK
+     - run: flutter build apk --release
+
