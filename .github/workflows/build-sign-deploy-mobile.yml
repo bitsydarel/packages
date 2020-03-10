@@ -53,6 +53,7 @@ jobs:
   upload-github:
    name: "Upload APK artifact to github release section"
    runs-on: [ubuntu-latest]
+   needs: build-package
    steps:
      - uses: skx/github-action-publish-binaries@release-1.3
        env:
