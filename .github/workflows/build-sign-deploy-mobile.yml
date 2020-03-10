@@ -49,9 +49,12 @@ jobs:
        working-directory: maintemplate/client/
      - name: building Android APK
        run: flutter build apk --release
-       working-directory: maintemplate/client/
-     - name: Upload APK artifact to github release section.
-       uses: skx/github-action-publish-binaries@release-1.3
+       working-directory: maintemplate/client/       
+  upload-github:
+   name: "Upload APK artifact to github release section"
+   runs-on: [ubuntu-latest]
+   steps:
+     - uses: skx/github-action-publish-binaries@release-1.3
        env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
        with:
