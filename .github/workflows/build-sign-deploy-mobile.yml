@@ -50,14 +50,10 @@ jobs:
      - name: building Android APK
        run: flutter build apk --release
        working-directory: maintemplate/client/       
-  upload-github:
-   name: "Upload APK artifact to github release section"
-   runs-on: [ubuntu-latest]
-   needs: build-package
-   steps:
-     - uses: marvinpinto/action-automatic-releases@latest
+     - name: Upload APK artifact to github release section
+       uses: marvinpinto/action-automatic-releases@latest
        with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: "latest"
         prerelease: true  
-        files: 'maintemplate/client/android/app/**/*.apk'
+        files: maintemplate/client/android/app/**/*.apk
