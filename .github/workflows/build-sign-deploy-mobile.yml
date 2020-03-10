@@ -55,6 +55,9 @@ jobs:
    runs-on: [ubuntu-latest]
    needs: build-package
    steps:
-     - uses: yakuhzi/action-release@v1.2.0
+     - uses: marvinpinto/action-automatic-releases@latest
        with:
-        file: 'maintemplate/client/android/app/**/*.apk'
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: true  
+        files: 'maintemplate/client/android/app/**/*.apk'
