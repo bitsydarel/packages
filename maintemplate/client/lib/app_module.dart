@@ -7,15 +7,17 @@ import 'package:mod_chat/mod_chat.dart';
 import 'package:mod_geo/mod_geo.dart';
 
 import 'package:mod_ion/ion_module.dart';
+import 'package:mod_session/mod_session.dart';
+import 'package:mod_write/mod_write.dart';
 
 import 'core/core.dart';
 import 'modules/settings/settings_module.dart';
-import 'modules/writer/writer_module.dart';
-
-import 'package:mod_write/writer_module.dart';
-
 
 class AppModule extends MainModule {
+  final String url;
+
+  AppModule({this.url});
+
   // here will be any class you want to inject into your project (eg bloc, dependency)
   @override
   List<Bind> get binds => [];
@@ -30,9 +32,13 @@ class AppModule extends MainModule {
         //     child: (context, args) => LoginView(),
         //     transition: TransitionType.fadeIn),
         Router(Paths.home, module: HomeModule()),
-        Router(Paths.chat, module: ChatModule(Paths.chat)),
-        Router(Paths.ion, module: IonModule(Paths.ion)),
-        Router(Paths.writer, module: WriterModule()),
+        Router(Paths.chat,
+            module: ChatModule(Paths.chat,
+                deviceID: SessionModule.deviceID, url: url)),
+        Router(Paths.ion,
+            module: IonModule(Paths.ion,
+                deviceID: SessionModule.deviceID,
+                userAgent: SessionModule.deviceUserAgent)),
         Router(Paths.modWriter, module: ModWriterModule(Paths.modWriter)),
         Router(Paths.modGeo, module: GeoModule(Paths.modGeo)),
         Router(Paths.settings, module: SettingsModule()),

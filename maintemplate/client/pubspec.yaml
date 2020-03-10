@@ -43,6 +43,8 @@ dependencies:
     path: ../../mod-ion/client
   mod_geo:
     path: ../../mod-geo/client
+  mod_session:
+    path: ../../mod-session/client
 
  
 
@@ -100,6 +102,7 @@ flutter:
     - assets/hambach.png
     - assets/london_strike.png
     - assets/pipeline.png
+    - assets/env.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
