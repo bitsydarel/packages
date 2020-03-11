@@ -1,1 +1,37 @@
+# This workflow will build, package and Sign windows, MacOs, Linux App and Deploy it.
+#
+# To configure this workflow:
+name: Build, Package, Sign and Deploy Windows, Linux and MacOs Apps
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "maintemplate/client/**"
+      - ".github/workflows/build-sign-deploy-desktop.yml"
+  push:
+    branches: 
+      - master
+    paths:
+      - "maintemplate/client/**"
+      - ".github/workflows/build-sign-deploy-desktop.yml"
 
+jobs:
+  build-package-sign-linux:
+    name: "Linux Build, Package, Sign and Deploy"
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Install Go
+        run: |
+          sudo apt-get update
+          sudo apt-get -y upgrade
+      - name: Cloning repository
+        uses: actions/checkout@v2.0.0
+      - uses: subosito/flutter-action@v1.2.0
+        with:
+          channel: beta
+      - name: Setting Up Flutter SDK
+        run: flutter pub get
+        working-directory: maintemplate/client/
+      
+  
