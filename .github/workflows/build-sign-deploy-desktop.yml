@@ -25,7 +25,7 @@ jobs:
         run: |
           sudo apt-get update
           wget -q https://dl.google.com/go/go1.14.linux-amd64.tar.gz -O /tmp/go_install.tar.gz
-          tar -C /usr/local -xzf /tmp/go_install.tar.gz
+          sudo tar -C /usr/local -xzf /tmp/go_install.tar.gz
           export PATH=$PATH:/usr/local/go/bin
           echo "PATH=$PATH:/usr/local/go/bin" >> $HOME/.profile
           go version
