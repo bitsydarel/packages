@@ -17,17 +17,17 @@ on:
       - master
     paths:
       - "maintemplate/client/**"
-      - ".github/workflows/**"
+      - ".github/workflows/build-sign-deploy-mobile.yml"
   push:
     branches: 
       - master
     paths:
       - "maintemplate/client/**"
-      - ".github/workflows/**"
+      - ".github/workflows/build-sign-deploy-mobile.yml"
 
 jobs:
-  build-package-android:
-   name: "Build, Package, Sign and Deploy Android App"
+  build-sign-deploy-android:
+   name: "Android App Build, Package, Sign and Deploy"
    runs-on: ubuntu-latest
    steps:
      - name: Cloning repository
@@ -59,8 +59,8 @@ jobs:
         automatic_release_tag: "latest"
         prerelease: true  
         files: ${{ env.SIGNED_RELEASE_FILE }}
-  build-package-ios:
-   name: "Build, Package, Sign and Deploy iOS App"
+  build-sign-deploy-ios:
+   name: "iOS App Build, Package, Sign and Deploy"
    runs-on: macos-latest
    steps:
      - name: Cloning repository
