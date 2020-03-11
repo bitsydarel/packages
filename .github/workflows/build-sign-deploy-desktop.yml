@@ -49,6 +49,9 @@ jobs:
         run: flutter pub get
         working-directory: maintemplate/client/
       - name: Build Linux Application
-        run: hover build linux
+        run: |
+          export GOPATH=$HOME/go
+          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+          hover build linux
       
   
