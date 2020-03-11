@@ -22,21 +22,21 @@ jobs:
     runs-on: [ubuntu-latest]
     env:
       GOROOT: /usr/local/go
-      GOPATH: "$HOME/go"
-      PATH: "$GOPATH/bin:/usr/local/go/bin:$PATH"
     steps:
       - name: Install Go
         run: |
           sudo apt-get update
           wget -q https://dl.google.com/go/go1.13.linux-amd64.tar.gz -O /tmp/go_install.tar.gz
           sudo tar -C /usr/local -xzf /tmp/go_install.tar.gz
-          echo "export GOPATH=$HOME/go"
-          echo "export PATH=$GOPATH/bin:$GOROOT/bin:$PATH"
+          export GOPATH=$HOME/go
+          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
           go version
       - name: Install Hover
         run: |
           sudo apt-get install libgl1-mesa-dev xorg-dev
           sudo apt-get install gcc libc6-dev
+          export GOPATH=$HOME/go
+          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
           go version
           go get -u github.com/go-flutter-desktop/hover
       - name: Cloning repository
