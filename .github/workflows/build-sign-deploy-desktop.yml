@@ -22,7 +22,14 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - name: Install Go
-        run: sudo apt-get update
+        run: |
+          sudo apt-get update
+          wget -q https://dl.google.com/go/go1.14.linux-amd64.tar.gz -O /tmp/go_install.tar.gz
+          tar -C /usr/local -xzf /tmp/go_install.tar.gz
+          export PATH=$PATH:/usr/local/go/bin
+          echo "PATH=$PATH:/usr/local/go/bin" >> $HOME/.profile
+          go version
+          go get -u github.com/go-flutter-desktop/hover
       - name: Cloning repository
         uses: actions/checkout@v2.0.0
       - uses: subosito/flutter-action@v1.2.0
