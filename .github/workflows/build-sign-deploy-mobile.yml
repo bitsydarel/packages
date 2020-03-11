@@ -26,9 +26,9 @@ on:
       - ".github/workflows/**"
 
 jobs:
-  build-package:
-   name: "Build, Package, Sign and deploy Android App"
-   runs-on: [macos-latest]
+  build-package-android:
+   name: "Build, Package, Sign and Deploy Android App"
+   runs-on: ubuntu-latest
    steps:
      - name: Cloning repository
        uses: actions/checkout@v2.0.0
@@ -59,3 +59,21 @@ jobs:
         automatic_release_tag: "latest"
         prerelease: true  
         files: ${{ env.SIGNED_RELEASE_FILE }}
+  build-package-ios:
+   name: "Build, Package, Sign and Deploy iOS App"
+   runs-on: macos-latest
+   steps:
+     - name: Cloning repository
+       uses: actions/checkout@v2.0.0
+     - uses: subosito/flutter-action@v1.2.0
+       with:
+         channel: beta
+     - name: Setting Up Flutter SDK
+       run: flutter pub get
+       working-directory: maintemplate/client/       
+     - name: Running build runner
+       run: flutter pub run build_runner build --delete-conflicting-outputs
+       working-directory: maintemplate/client/
+     - name: Building iOS IPA
+       run: flutter build ios --release --no-codesign
+       working-directory: maintemplate/client/
