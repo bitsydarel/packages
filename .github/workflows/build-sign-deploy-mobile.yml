@@ -33,7 +33,7 @@ env:
 
 jobs:
   build-package:
-   name: "Build and Package"
+   name: "Build, Package, Sign and deploy Android App"
    runs-on: [macos-latest]
    steps:
      - name: Cloning repository
@@ -49,11 +49,19 @@ jobs:
        working-directory: maintemplate/client/
      - name: building Android APK
        run: flutter build apk --release
-       working-directory: maintemplate/client/       
+       working-directory: maintemplate/client/
+     - name: sign Android APK
+       uses: r0adkll/sign-android-release@v1
+       with:
+        releaseDirectory: maintemplate/client/build/app/outputs/apk/release
+        signingKeyBase64: ${ANDROID_SIGN_KEY_BASE_64}
+        alias: ${ANDROID_SIGN_KEY_ALIAS}
+        keyStorePassword: ${ANDROID_SIGN_KEY_STORE_PASS}
+        keyPassword: ${ANDROID_SIGN_KEY_PASSWORD}   
      - name: Upload APK artifact to github release section
        uses: marvinpinto/action-automatic-releases@latest
        with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         automatic_release_tag: "latest"
         prerelease: true  
-        files: maintemplate/client/build/app/outputs/apk/release/app-release.apk
+        files: ${SIGNED_RELEASE_FILE}
