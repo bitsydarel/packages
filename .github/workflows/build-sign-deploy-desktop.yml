@@ -29,6 +29,10 @@ jobs:
           export PATH=$PATH:/usr/local/go/bin
           echo "PATH=$PATH:/usr/local/go/bin" >> $HOME/.profile
           go version
+      - name: Install Hover
+        run: |
+          sudo apt-get install libgl1-mesa-dev xorg-dev
+          sudo apt-get install gcc libc6-dev
           go get -u github.com/go-flutter-desktop/hover
       - name: Cloning repository
         uses: actions/checkout@v2.0.0
