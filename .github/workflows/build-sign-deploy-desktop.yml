@@ -20,10 +20,10 @@ jobs:
   build-package-sign-linux:
     name: "Linux Build, Package, Sign and Deploy"
     runs-on: [ubuntu-latest]
-#     env:
-#       GOROOT: /usr/local/go
-#       GOPATH: ${{ env.HOME }}/go
-#       PATH: "$GOPATH/bin:"
+    env:
+      GOROOT: /usr/local/go
+      GOPATH: ${{ env.HOME }}/go
+      PATH: "${{ env.GOPATH }}/bin:${{ env.GOROOT }}/bin:${{ env.PATH }}"
     steps:
       - name: Install Go
         run: |
