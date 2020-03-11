@@ -54,5 +54,16 @@ jobs:
           export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
           hover build linux
         working-directory: maintemplate/client/
+      - name: Packaging Linux App
+        run: |
+          export GOPATH=$HOME/go
+          export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+          hover init-packaging linux-appimage
+          hover init-packaging linux-deb
+          hover init-packaging linux-snap
+          hover build linux-deb
+          hover build linux-appimage
+          hover build linux-snap
+        working-directory: maintemplate/client/
       
   
