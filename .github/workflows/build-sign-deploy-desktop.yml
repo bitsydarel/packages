@@ -76,6 +76,8 @@ jobs:
         run: |
           echo $SIGN_KEY_BASE_64 | base64 -d | tee private_sign_key.asc
           gpg --batch --with-colons --import private_sign_key.asc
+          sudo apt-get update
+          sudo apt-get install debsigs
           debsigs --sign=origin -k $SIGN_KEY_ID maintemplate-1.0.0+1.deb
           
       
