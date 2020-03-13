@@ -78,8 +78,8 @@ jobs:
           gpg --batch --with-colons --import private_sign_key.asc
           sudo apt-get update
           sudo apt-get install debsigs
-          debsigs --sign=origin -k $SIGN_KEY_ID maintemplate-1.0.0+1.deb
-        working-directory: maintemplate/client/
+          debsigs --sign=origin -k $SIGN_KEY_ID maintemplate-*.deb
+        working-directory: maintemplate/client/go/build/outputs/linux
           
       
   
