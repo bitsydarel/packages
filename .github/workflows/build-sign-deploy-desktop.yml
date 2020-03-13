@@ -79,6 +79,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install debsigs
           debsigs --sign=origin -k $SIGN_KEY_ID maintemplate-1.0.0+1.deb
+        working-directory: maintemplate/client/
           
       
   
