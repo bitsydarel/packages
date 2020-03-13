@@ -1,5 +1,9 @@
 # This workflow will build, package and Sign windows, MacOs, Linux App and Deploy it.
-#
+# 
+# 1. Set up secrets in your workspace:
+#   * LINUX_PUBLIC_SIGN_KEY the public key of your secret gpg signing key.
+#   * LINUX_PRIVATE_SIGN_KEY_BASE_64 the private key of your secret gpg signing key.
+#   * LINUX_SIGN_KEY_ID used to find the key.
 # To configure this workflow:
 name: Build, Package, Sign and Deploy Windows, Linux and MacOs Apps
 on:
@@ -65,5 +69,14 @@ jobs:
           hover build linux-appimage
           hover build linux-snap
         working-directory: maintemplate/client/
+      - name: Sign Linux App
+        env: 
+          SIGN_KEY_BASE_64: ${{ secrets.LINUX_PRIVATE_SIGN_KEY_BASE_64 }}
+          SIGN_KEY_ID: ${{ secrets.LINUX_SIGN_KEY_ID }}
+        run: |
+          echo $SIGN_KEY_BASE_64 | base64 -d | tee private_sign_key.asc
+          gpg --batch --with-colons --import private_sign_key.asc
+          debsigs --sign=origin -k $SIGN_KEY_ID maintemplate-1.0.0+1.deb
+          
       
   
