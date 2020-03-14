@@ -76,7 +76,7 @@ jobs:
           SIGN_KEY_PASSWORD: ${{ secrets.LINUX_SIGN_PASSWORD }}
         run: |
           echo $SIGN_KEY_BASE_64 | base64 -d | tee private_sign_key.asc
-          echo $SIGN_KEY_PASSWORD | gpg --batch --import private_sign_key.asc
+          echo $SIGN_KEY_PASSWORD | gpg --batch --allow-secret-key-import --import private_sign_key.asc
           sudo apt-get update
           sudo apt-get install debsigs
           debFile=$(ls go/build/outputs/linux-deb/*.deb)
