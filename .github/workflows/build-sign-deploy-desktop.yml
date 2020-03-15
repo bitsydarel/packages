@@ -86,6 +86,37 @@ jobs:
           debFile=$(ls go/build/outputs/linux-deb/*.deb)
           debsigs --sign=origin -k $SIGN_KEY_ID ${debFile}
         working-directory: maintemplate/client/
-          
-      
+  build-package-sign-windows:
+    name: "Windows Build, Package, Sign and Deploy"
+    runs-on: [windows-latest]
+    env:
+      GO111MODULE: auto
+    steps:
+      - name: Install Go
+        run: |
+          powershell Invoke-WebRequest https://dl.google.com/go/go1.14.windows-amd64.msi -OutFile C:\temp\go-windows-amd64.msi
+          powershell Start-Process msiexec.exe -Wait -ArgumentList '/I C:\temp\go-windows-amd64.msi /quiet'
+      - name: Install Hover
+        run: |
+          go version
+          go get -u github.com/go-flutter-desktop/hover
+      - name: Cloning repository
+        uses: actions/checkout@v2.0.0
+      - uses: subosito/flutter-action@v1.2.0
+        with:
+          channel: beta
+      - name: Setting Up Flutter SDK
+        run: flutter pub get
+        working-directory: maintemplate/client/
+      - name: Build Linux Application
+        run: hover build windows
+        working-directory: maintemplate/client/
+      - name: Packaging Windows App
+        run: |
+          hover init-packaging windows-msi
+          hover build windows-msi
+        working-directory: maintemplate/client/
+      - name: Sign Linux App
+        run: echo "TODO Add signing for Windows using Sign Tool"
+        working-directory: maintemplate/client/
   
