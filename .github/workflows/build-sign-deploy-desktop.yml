@@ -95,7 +95,7 @@ jobs:
       - name: Install Go
         run: |
           powershell Invoke-WebRequest https://dl.google.com/go/go1.14.windows-amd64.msi -OutFile C:\temp\go-windows-amd64.msi
-          msiexec.exe /I C:\temp\go-windows-amd64.msi /quiet
+          start /wait msiexec.exe /i C:\temp\go-windows-amd64.msi /q /norestart
       - name: Install Hover
         run: |
           go version
