@@ -94,8 +94,8 @@ jobs:
     steps:
       - name: Install Go
         run: |
-          wget -q https://dl.google.com/go/go1.14.windows-amd64.msi -O C:\temp\go-windows-amd64.msi
-          powershell Start-Process msiexec.exe -Wait -ArgumentList '/I C:\temp\go-windows-amd64.msi /quiet'
+          powershell Invoke-WebRequest https://dl.google.com/go/go1.14.windows-amd64.msi -OutFile C:\temp\go-windows-amd64.msi
+          msiexec.exe /I C:\temp\go-windows-amd64.msi /quiet
       - name: Install Hover
         run: |
           go version
