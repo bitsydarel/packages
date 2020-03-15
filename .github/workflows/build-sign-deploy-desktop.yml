@@ -82,7 +82,7 @@ jobs:
           debFile=$(ls go/build/outputs/linux-deb/*.deb)
           export GPG_TTY=$(tty)
           echo "no-tty" >> ~/.gnupg/gpg.conf
-          gpg --list-secret-keys
+          gpg --list-keys
           debsigs --sign=origin -k $SIGN_KEY_ID ${debFile}
         working-directory: maintemplate/client/
           
